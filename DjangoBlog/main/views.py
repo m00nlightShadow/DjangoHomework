@@ -1,9 +1,10 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
+from django.shortcuts import redirect
 
 def about(request):
     return HttpResponse('Django func descriptions')
 
-def homepage(request):
+def home(request):
     return HttpResponse('Homepage')
 
 def create_post(request):
@@ -49,6 +50,7 @@ def user_login(request):
     return HttpResponse('User login')
 
 def user_logout(request):
-    return HttpResponse('User logout')
+    return redirect('home')
 
-
+def posts_archive(request, year, month):
+    return HttpResponse(f'archive {year =}, {month = }')

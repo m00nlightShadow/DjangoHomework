@@ -1,9 +1,14 @@
-from django.urls import path
+from django.urls import path, register_converter
 from .views import *
+from . import converters
+
+
+register_converter(converters.FourDigitYearConverter, 'year4')
+register_converter(converters.MonthConverter, 'month2')
 
 urlpatterns = [
-    path('', homepage, name='homepage'),
-    path('about/', about, name='about'),
+    path('', home, name='home'),
+    path('about/', about, name='about_page'),
     path('create/', create_post, name='create_post'),
     path('topics/', topics, name='topics'),
     path('topics/<topic>/subscribe/', topic_subscribe, name='topic_subscribe'),
@@ -15,6 +20,7 @@ urlpatterns = [
     path('register/', register_new_profile, name='register_new_profile'),
     path('login/', user_login, name='user_login'),
     path('logout/', user_logout, name='user_logout'),
+    path('archive/<year4:year>/<month2:month>/', posts_archive),
     path('<article>/', show_article, name='show_article'),
     path('<article>/comment/', article_comment, name='article_comment'),
     path('<article>/update/', article_update, name='article_update'),
